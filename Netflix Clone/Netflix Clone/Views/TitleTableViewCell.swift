@@ -68,7 +68,7 @@ class TitleTableViewCell: UITableViewCell {
             //Title label
             titleLabel.leadingAnchor.constraint(equalTo: posterImage.trailingAnchor, constant: 20),
             titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: playButton.leadingAnchor, constant: -20),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -65),
             
             //Play button
             playButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
