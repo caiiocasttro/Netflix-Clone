@@ -21,6 +21,10 @@ class HomeViewController: UIViewController {
     private var titleHeader = ModelArray.headerTitles
     
     //MARK: Proprieties
+    private var randomTrendingMovies: Title?
+    
+    private var headerView: HeaderHeroUIView?
+    
     private var HomeFeedTable: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.register(CollectionViewTableViewCell.self, forCellReuseIdentifier: CollectionViewTableViewCell.identifier)
@@ -32,11 +36,9 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         configureLayout()
-        
         HomeFeedTable.delegate = self
         HomeFeedTable.dataSource = self
-        
-        
+
     }
     
     //MARK: Configuring layout
@@ -48,7 +50,9 @@ class HomeViewController: UIViewController {
         HomeFeedTable.frame = view.bounds
         
         //Adding header
-        HomeFeedTable.tableHeaderView = HeaderHeroUIView(frame: .init(x: 0, y: 0, width: view.frame.width, height: 500))
+        headerView = HeaderHeroUIView(frame: .init(x: 0, y: 0, width: view.frame.width, height: 500))
+        HomeFeedTable.tableHeaderView = headerView
+        configureHeaderView()
         
         //Configuring navigationBar buttons
         var logo = UIImage(named: "netflix")
@@ -62,6 +66,21 @@ class HomeViewController: UIViewController {
         
         navigationController?.navigationBar.tintColor = .white
         
+    }
+    
+    private func configureHeaderView() {
+        
+        APICaller.shared.gettingTrendingMovies { [weak self] result in
+            switch result {
+            case .success(let titles):
+                print("success")
+                let selectedTitle = titles.randomElement()
+                    self?.randomTrendingMovies = selectedTitle
+                    self?.headerView?.configure(with: TitleViewModel(titleName: selectedTitle?.original_title ?? "", posterURL: selectedTitle?.poster_path ?? ""))
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
     

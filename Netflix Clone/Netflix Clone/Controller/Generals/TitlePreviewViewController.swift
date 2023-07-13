@@ -3,7 +3,7 @@
 //  Netflix Clone
 //
 //  Created by Caio Chaves on 11.07.23.
-// TODO: Finish the last part of the application 4:06:03
+// 
 
 import UIKit
 import WebKit

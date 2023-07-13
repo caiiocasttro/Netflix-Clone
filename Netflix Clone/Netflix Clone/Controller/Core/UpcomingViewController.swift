@@ -3,7 +3,7 @@
 //  Netflix Clone
 //
 //  Created by Caio Chaves on 10.07.23.
-//
+// TODO: Continue from here ---
 
 import UIKit
 
@@ -74,5 +74,9 @@ extension UpcomingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 140
     }
+    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        tableView.
+//    }
     
 }

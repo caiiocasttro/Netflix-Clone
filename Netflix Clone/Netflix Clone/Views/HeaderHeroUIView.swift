@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class HeaderHeroUIView: UIView {
     
@@ -80,6 +81,15 @@ class HeaderHeroUIView: UIView {
             downloadButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -60),
             downloadButton.widthAnchor.constraint(equalToConstant: 120)
         ])
+        
+    }
+    
+    public func configure(with model: TitleViewModel) {
+        
+        guard let url = URL(string: "https://image.tmdb.org/t/p/w500/\(model.posterURL)") else { return }
+        
+        imageHeader.sd_setImage(with: url, completed: nil)
+        
         
     }
     
