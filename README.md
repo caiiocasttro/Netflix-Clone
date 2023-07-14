@@ -1,6 +1,6 @@
 # Netflix Clone
 
-**Still in development**⚠️ 
+**Still in development** ⚠️ 
 
 ## This is a clone of the Netflix application built following the - iOS Development Course - Use Swift 5 and UIKit to Build a Netflix Clone on youtube.
 
