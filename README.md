@@ -25,4 +25,4 @@ The application import all these data from the Free API of the themoviedb.com we
 
 ### 📸 Screenshots of the application
 
-## Coming soon ⏳
+ **Coming soon** ⏳
