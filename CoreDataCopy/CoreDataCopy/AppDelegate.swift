@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  Netflix Clone
+//  CoreDataCopy
 //
-//  Created by Caio Chaves on 10.07.23.
+//  Created by Caio Chaves on 18.07.23.
 //
 
 import UIKit
@@ -34,7 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Core Data stack
 
-    // Persistent container
     lazy var persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation
@@ -42,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
         */
-        let container = NSPersistentContainer(name: "AppStorage")
+        let container = NSPersistentContainer(name: "CoreDataCopy")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
@@ -64,7 +63,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Core Data Saving support
 
-    //Context manager
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
@@ -78,7 +76,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
 
 }
 
