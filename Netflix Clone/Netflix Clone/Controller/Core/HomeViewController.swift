@@ -30,7 +30,7 @@ class HomeViewController: UIViewController {
         tableView.register(CollectionViewTableViewCell.self, forCellReuseIdentifier: CollectionViewTableViewCell.identifier)
         return tableView
     }()
-
+    
     //MARK: Page Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +38,7 @@ class HomeViewController: UIViewController {
         configureLayout()
         HomeFeedTable.delegate = self
         HomeFeedTable.dataSource = self
-
+        
     }
     
     //MARK: Configuring layout
@@ -55,10 +55,10 @@ class HomeViewController: UIViewController {
         configureHeaderView()
         
         //Configuring navigationBar buttons
-        var logo = UIImage(named: "netflix")
-        logo = logo?.withRenderingMode(.alwaysOriginal)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: logo, style: .done, target: self, action: nil)
-
+        var image = UIImage(named: "netflixLogo")
+        image = image?.withRenderingMode(.alwaysOriginal)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .done, target: self, action: nil)
+        
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil),
             UIBarButtonItem(image: UIImage(systemName: "play.rectangle"), style: .done, target: self, action: nil)
@@ -75,8 +75,8 @@ class HomeViewController: UIViewController {
             case .success(let titles):
                 print("success")
                 let selectedTitle = titles.randomElement()
-                    self?.randomTrendingMovies = selectedTitle
-                    self?.headerView?.configure(with: TitleViewModel(titleName: selectedTitle?.original_title ?? "", posterURL: selectedTitle?.poster_path ?? ""))
+                self?.randomTrendingMovies = selectedTitle
+                self?.headerView?.configure(with: TitleViewModel(titleName: selectedTitle?.original_title ?? "", posterURL: selectedTitle?.poster_path ?? ""))
             case .failure(let error):
                 print(error.localizedDescription)
             }

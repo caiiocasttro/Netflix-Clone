@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import CoreData
+
 
 class DownloadsViewController: UIViewController {
     
@@ -26,13 +26,13 @@ class DownloadsViewController: UIViewController {
         downloadTable.delegate = self
         downloadTable.dataSource = self
         fetchingLocalDataFromStorage()
-        downloadTable.reloadData()
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("downloaded"), object: nil, queue: nil) { _ in
+                    self.fetchingLocalDataFromStorage()
+                }
         
     }
     
-    override func viewDidLayoutSubviews() {
-        downloadTable.frame = view.bounds
-    }
+    
     
     //MARK: Configuring layout
     private func configureLayout() {
@@ -57,13 +57,20 @@ class DownloadsViewController: UIViewController {
             switch result {
             case .success(let titles):
                 self?.titles = titles
-                self?.downloadTable.reloadData()
+                DispatchQueue.main.async {
+                    self?.downloadTable.reloadData()
+                }
+                
             case .failure(let error):
                 print(error.localizedDescription)
             }
             
         }
         
+    }
+    
+    override func viewDidLayoutSubviews() {
+        downloadTable.frame = view.bounds
     }
     
 }
@@ -106,4 +113,30 @@ extension DownloadsViewController: UITableViewDelegate, UITableViewDataSource {
             break
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            tableView.deselectRow(at: indexPath, animated: true)
+            
+            let title = titles[indexPath.row]
+            
+            guard let titleName = title.original_title ?? title.original_name else {
+                return
+            }
+            
+            
+            APICaller.shared.getMovie(with: titleName) { [weak self] result in
+                switch result {
+                case .success(let videoElement):
+                    DispatchQueue.main.async {
+                        let vc = TitlePreviewViewController()
+                        vc.configure(with: TitlePreviewViewModel(title: titleName, youtubeView: videoElement, titleOverview: title.overview ?? ""))
+                        self?.navigationController?.pushViewController(vc, animated: true)
+                    }
+
+                    
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
 }
